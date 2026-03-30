@@ -5,8 +5,7 @@
 #define TRAINER_ENABLED 1 << 4
 #define OFFSETS_ENABLED 1 << 5
 #define SPEEDOMETER_ENABLED 1 << 6
-#define SPEEDOMETER_VERTICAL_ENABLED 1 << 7
-#define SPEEDOMETER_VELOCITY_DIFF 1 << 8
+#define SPEEDOMETER_VELOCITY_DIFF 1 << 7
 #define SSJ_ENABLED 1 << 8
 #define SSJ_REPEAT 1 << 9
 #define SSJ_HEIGHTDIFF 1 << 10
@@ -28,7 +27,7 @@
 #define SHOWKEYS_ENABLED 1 << 26
 #define SHOWKEYS_SIMPLE 1 << 27
 #define SHOWKEYS_UNRELIABLE 1 << 28
-//open slot 1 << 29
+#define SPEEDOMETER_VERTICAL_ENABLED 1 << 29
 //open slot 1 << 30
 //open slot 1 << 31
 //open slot 1 << 32 -> must solve issues (or make sure there are none) with handling sign bit if this is used
@@ -332,7 +331,7 @@ void PushDefaultBools(int client)
 	//g_iSettings[client][Bools] |= TRAINER_ENABLED;
 	//g_iSettings[client][Bools] |= OFFSETS_ENABLED;
 	//g_iSettings[client][Bools] |= SPEEDOMETER_ENABLED;
-	//g_iSettings[client][Bools] |= SPEEDOMETER_VELOCITY_DIFF:
+	//g_iSettings[client][Bools] |= SPEEDOMETER_VELOCITY_DIFF;
 	g_iSettings[client][Bools] |= SSJ_ENABLED;
 	g_iSettings[client][Bools] |= SSJ_REPEAT;
 	//g_iSettings[client][Bools] |= SSJ_HEIGHTDIFF;
