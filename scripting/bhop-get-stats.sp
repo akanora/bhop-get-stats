@@ -296,7 +296,7 @@ public void OnPlayerRunCmdPost(int client, int buttons, int impulse, const float
 		realVel = vel;
 	}
 
-	Bgs_ProcessPostRunCmd(client, realButtons, yawDiff, realVel, realAngles, IsShavitReplayBot(client) ? g_fLastRunCmdVelVec[client] : g_fRunCmdVelVec[client]);
+	Bgs_ProcessPostRunCmd(client, realButtons, yawDiff, realVel, realAngles, IsShavitReplayBot(client) ? GetReplayBotVelocity(client) : g_fRunCmdVelVec[client]);
 }
 
 void Bgs_ProcessPostRunCmd(int client, int buttons, float yawDiff, const float vel[3], const float angles[3], float velocity[3])
@@ -504,7 +504,7 @@ void Bgs_ProcessPostRunCmd(int client, int buttons, float yawDiff, const float v
 void StartFirstJumpForward(int client)
 {
 	float realVelocity[3];
-	realVelocity = (IsShavitReplayBot(client) ? g_fLastRunCmdVelVec[client] : g_fRunCmdVelVec[client]);
+	realVelocity = (IsShavitReplayBot(client) ? GetReplayBotVelocity(client) : g_fRunCmdVelVec[client]);
 
 	Call_StartForward(FirstJumpStatsForward);
 	Call_PushCell(client);
@@ -517,7 +517,7 @@ void StartFirstJumpForward(int client)
 void StartJumpForward(int client)
 {
 	float realVelocity[3];
-	realVelocity = (IsShavitReplayBot(client) ? g_fLastRunCmdVelVec[client] : g_fRunCmdVelVec[client]);
+	realVelocity = (IsShavitReplayBot(client) ? GetReplayBotVelocity(client) : g_fRunCmdVelVec[client]);
 
 	int speed = RoundToFloor(GetSpeed(realVelocity, true));
 
@@ -611,6 +611,18 @@ float NormalizeAngle(float ang)
 		ang += 360.0;
 	}
 	return ang;
+}
+
+float[] GetReplayBotVelocity(int client)
+{
+	frame_cache_t cache;
+	Shavit_GetReplayBotCache(client, cache);
+
+	if (cache.iReplayVersion == 0x0a)
+	{
+		return g_fRunCmdVelVec[client];
+	}
+	return g_fLastRunCmdVelVec[client];
 }
 
 bool IsShavitReplayBot(int client)
